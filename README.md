@@ -8,7 +8,7 @@ AETTS (Audio Extraction, Transcription, Translation and Synthesis) is a local pi
 - **Offline transcription** using pre‑downloaded Whisper models.
 - **Offline translation** (DE → EN) using a local HuggingFace model.
 - **Speech synthesis** with Kokoro TTS and several voices.
-- **Audio enhancement** filters (high/low pass, noise reduction, compressor, dialogue enhancement).
+- **Audio enhancement** filters (high/low pass, noise reduction, compressor, dialogue enhancement, bass/treble control and reverb for a warmer sound).
 
 ## Installation
 1. Install Python 3.11 (as noted in `Notes`).
@@ -54,7 +54,7 @@ Run Whisper on the prepared audio. Choose the model size and language; transcrip
 Translate the German transcript to English using the local translation model.
 
 ### Bonus: Audio Enhancement Toolbox
-Apply ffmpeg-based filters such as high/low pass, noise reduction, and compression. Multiple files can be processed and downloaded as a zip.
+Apply ffmpeg-based filters to clean up or warm the sound. Options now include bass/treble adjustment and a subtle reverb in addition to high/low pass, noise reduction and compression. Multiple files can be processed and downloaded as a zip.
 
 ### 4. Synthesize Speech
 Generate speech from your chosen text with Kokoro TTS. Pick a voice from `config.py` and adjust the speed if needed.

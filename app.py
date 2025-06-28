@@ -141,6 +141,10 @@ with gr.Blocks() as demo:
             highpass_slider = gr.Slider(minimum=0, maximum=500, value=100, step=10, label="High-pass Filter (Hz)")
             lowpass_slider = gr.Slider(minimum=2000, maximum=8000, value=4000, step=100, label="Low-pass Filter (Hz)")
         with gr.Row():
+            bass_slider = gr.Slider(minimum=-10, maximum=10, value=3, step=1, label="Bass Gain (dB)")
+            treble_slider = gr.Slider(minimum=-10, maximum=10, value=-2, step=1, label="Treble Gain (dB)")
+        reverb_slider = gr.Slider(minimum=0.0, maximum=1.0, value=0.1, step=0.05, label="Reverb Amount")
+        with gr.Row():
             noise_reduce_checkbox = gr.Checkbox(label="Enable Noise Reduction (afftdn)", value=False)
             dialogue_enhance_checkbox = gr.Checkbox(label="Enable Dialogue Enhancement", value=False)
         compressor_checkbox = gr.Checkbox(label="Enable Dynamic Range Compressor", value=True)
@@ -189,9 +193,11 @@ with gr.Blocks() as demo:
     enhance_button.click(
         enhance_audio,
         inputs=[
-            enhancement_audio_input, ffmpeg_path_input, 
-            highpass_slider, lowpass_slider, compressor_checkbox,
-            noise_reduce_checkbox, dialogue_enhance_checkbox
+            enhancement_audio_input, ffmpeg_path_input,
+            highpass_slider, lowpass_slider,
+            compressor_checkbox,
+            noise_reduce_checkbox, dialogue_enhance_checkbox,
+            bass_slider, treble_slider, reverb_slider
         ],
         outputs=[enhanced_audio_output, enhanced_files_output]
     )
