@@ -4,7 +4,19 @@ import tempfile
 import zipfile
 import gradio as gr
 
-def enhance_audio(audio_files, ffmpeg_path, highpass_freq, lowpass_freq, use_compressor, use_noise_reduction, use_dialogue_enhance, progress=gr.Progress()):
+def enhance_audio(
+    audio_files,
+    ffmpeg_path,
+    highpass_freq,
+    lowpass_freq,
+    use_compressor,
+    use_noise_reduction,
+    use_dialogue_enhance,
+    bass_gain,
+    treble_gain,
+    reverb_amount,
+    progress=gr.Progress(),
+):
     """
     Enhances audio files using ffmpeg filters.
     """
@@ -30,6 +42,14 @@ def enhance_audio(audio_files, ffmpeg_path, highpass_freq, lowpass_freq, use_com
             filter_complex.append("dialoguenhance")
         if use_compressor:
             filter_complex.append("acompressor=threshold=0.1:ratio=9:attack=200:release=1000")
+        if bass_gain != 0:
+            filter_complex.append(f"bass=g={bass_gain}")
+        if treble_gain != 0:
+            filter_complex.append(f"treble=g={treble_gain}")
+        if reverb_amount > 0:
+            # a simple reverb using the aecho filter for a warmer feel
+            decays = f"{reverb_amount}|{reverb_amount/2}"
+            filter_complex.append(f"aecho=0.8:0.9:40|60:{decays}")
 
         cmd = [
             ffmpeg_path,
