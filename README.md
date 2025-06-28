@@ -54,7 +54,7 @@ Extract audio from a video or upload an audio file. You can remove silence and o
 Run Whisper on the prepared audio. Choose the model size and language; transcripts are saved in `transcripts/`.
 
 ### 3. Translate Text
-Translate the German transcript to English using the local translation model.
+Translate the German transcript to English using the local translation model. Large blocks of text are translated sentence by sentence and streamed back to the interface.
 
 ### Bonus: Audio Enhancement Toolbox
 Apply ffmpeg-based filters to clean up or warm the sound. Options now include bass/treble adjustment and a subtle reverb in addition to high/low pass, noise reduction and compression. Multiple files can be processed and downloaded as a zip.
