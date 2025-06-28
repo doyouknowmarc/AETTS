@@ -30,6 +30,9 @@ python download_whisper_model.py        # Whisper transcription models
 python download_translation_model.py    # German→English translation model
 python download_voices.py               # Kokoro model and voices
 ```
+The voice script downloads the full `hexgrad/Kokoro-82M` repository. If the
+`models/kokoro_model` directory already exists you'll be asked whether to
+overwrite it.
 This will create the folders below and download the required files:
 - `models/whisper/`
 - `models/translation_model/`
