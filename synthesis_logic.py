@@ -9,7 +9,21 @@ import os
 import traceback
 import re
 import zipfile
-# import warnings  # This module is currently not used
+import warnings  # Enable warning control
+
+# Suppress less useful warnings from dependencies
+warnings.filterwarnings(
+    "ignore",
+    message="dropout option adds dropout after all but last recurrent layer*",
+)
+warnings.filterwarnings(
+    "ignore",
+    message="*torch.nn.utils.weight_norm*is deprecated*",
+)
+warnings.filterwarnings(
+    "ignore",
+    message="Defaulting repo_id*",
+)
 
 # --- Import from our project files ---
 from config import AppConfig, CUDA_AVAILABLE, MPS_AVAILABLE
@@ -19,9 +33,6 @@ try:
     from kokoro.pipeline import KPipeline
 except ImportError:
     raise ImportError("Kokoro library not found. Please install it with: pip install kokoro>=0.9.4 soundfile numpy")
-
-#warnings.filterwarnings('ignore', message='dropout option ..')
-#warnings.filterwarnings('ignore', message='*torch.nn.utils.weight_norm.*is deprecated.*')
 REPO_ID = 'hexgrad/Kokoro-82M'
 #LANG_CODE = 'a'
 #VOICE = 'am_michael'
@@ -90,7 +101,11 @@ def step6_synthesize_speech_kokoro(text_to_speak, language_for_tts, kokoro_voice
             )
         
         print(f"Initializing Kokoro pipeline with lang_code: '{kokoro_lang_code}' (mapped from '{language_for_tts}')")
-        pipeline = KPipeline(lang_code=kokoro_lang_code, model=loaded_model)
+        pipeline = KPipeline(
+            lang_code=kokoro_lang_code,
+            model=loaded_model,
+            repo_id=REPO_ID,
+        )
         
         voice_file_path = os.path.join(AppConfig.LOCAL_KOKORO_MODEL_PATH, "voices", f"{voice_id}.pt")
         if not os.path.exists(voice_file_path):
