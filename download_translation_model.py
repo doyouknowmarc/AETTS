@@ -1,4 +1,5 @@
 import os
+import shutil
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 # --- Configuration ---
@@ -8,12 +9,21 @@ SAVE_DIRECTORY = "./models/translation_model"
 def download_translation_model():
     """
     Downloads and saves the translation model and tokenizer to a local directory.
-    Run this script once while you have an internet connection.
+    If the target directory already exists and contains files, the user will be
+    asked whether to overwrite it. Run this script once while you have an
+    internet connection.
     """
-    if os.path.exists(SAVE_DIRECTORY) and os.listdir(SAVE_DIRECTORY):
-        print(f"Model directory '{SAVE_DIRECTORY}' already exists and is not empty. Skipping download.")
-        print("If you need to re-download, please delete this directory first.")
-        return
+    if os.path.exists(SAVE_DIRECTORY):
+        if os.listdir(SAVE_DIRECTORY):
+            response = input(
+                f"Directory '{SAVE_DIRECTORY}' already exists and is not empty. Overwrite? [y/N]: "
+            )
+            if response.strip().lower() != "y":
+                print("Skipping download.")
+                return
+            shutil.rmtree(SAVE_DIRECTORY)
+        else:
+            shutil.rmtree(SAVE_DIRECTORY)
 
     print(f"Creating directory: {SAVE_DIRECTORY}")
     os.makedirs(SAVE_DIRECTORY, exist_ok=True)
