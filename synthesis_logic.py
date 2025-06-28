@@ -11,19 +11,7 @@ import re
 import zipfile
 import warnings  # Enable warning control
 
-# Suppress less useful warnings from dependencies
-warnings.filterwarnings(
-    "ignore",
-    message="dropout option adds dropout after all but last recurrent layer*",
-)
-warnings.filterwarnings(
-    "ignore",
-    message="*torch.nn.utils.weight_norm*is deprecated*",
-)
-warnings.filterwarnings(
-    "ignore",
-    message="Defaulting repo_id*",
-)
+
 
 # --- Import from our project files ---
 from config import AppConfig, CUDA_AVAILABLE, MPS_AVAILABLE

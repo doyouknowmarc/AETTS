@@ -72,3 +72,7 @@ Generate speech from your chosen text with Kokoro TTS. Pick a voice from `config
 ## Notes
 The `models/` directory in the repository only contains placeholder files. After running the download scripts the models will be stored locally so the application can run entirely offline.
 
+Custom Voices:
+https://www.youtube.com/watch?v=tl1wvZXlj0I
+
+
