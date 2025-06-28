@@ -40,19 +40,20 @@ with gr.Blocks() as demo:
 
     # --- UI DEFINITION ---
 
-    with gr.Accordion("Step 1 & 2: Get & Prepare Audio", open=True):
+    with gr.Accordion("Step 1: Get Audio", open=False):
         gr.Markdown("#### Step 1: Provide Audio")
         gr.Markdown("Extract audio from a video file or upload an existing audio file.")
         with gr.Tabs():
             with gr.TabItem("From Video File"):
-                video_input = gr.Video(label="Input Video")
-                ffmpeg_path_input = gr.Textbox(label="Path to FFmpeg", value=AppConfig.FFMPEG_PATH)
-                extract_button = gr.Button("1. Extract Audio", variant="primary")
-                audio_output_s1 = gr.Audio(label="Extracted Audio", type="filepath")
+                video_input = gr.Video(label='Input Video')
+                ffmpeg_path_input = gr.Textbox(label='Path to FFmpeg', value=AppConfig.FFMPEG_PATH)
+                extract_button = gr.Button('1. Extract Audio', variant='primary')
+                audio_output_s1 = gr.Audio(label='Extracted Audio', type='filepath')
 
             with gr.TabItem("From Audio File"):
-                audio_upload_input = gr.Audio(label="Input Audio", type="filepath")
+                audio_upload_input = gr.Audio(label='Input Audio', type='filepath')
 
+    with gr.Accordion("Step 2: Pre-process Audio", open=False):
         gr.Markdown("#### Step 2: Pre-process Audio")
         gr.Markdown(
             "Use the optional tools below to remove silence and split the audio into chunks for easier transcription."
@@ -64,7 +65,7 @@ with gr.Blocks() as demo:
             silence_thresh_input = gr.Slider(minimum=-70, maximum=-30, value=-50, step=5, label="Silence Thresh (dB)")
             process_silence_button = gr.Button("Remove Silence", variant="secondary")
             audio_output_s2 = gr.Audio(label="Silence-Removed Audio", type="filepath")
-
+    
         with gr.Group():
             gr.Markdown("**2b. Split Audio into Chunks (for Transcription)**")
             audio_choice_radio = gr.Radio(
@@ -73,11 +74,12 @@ with gr.Blocks() as demo:
                 value="Use Silence-Removed Audio"
             )
             chunk_duration_slider = gr.Slider(minimum=30, maximum=600, value=180, step=30, label="Chunk Duration (seconds)")
-
+    
             process_chunking_button = gr.Button("Prepare for Transcription", variant="primary")
             chunk_download_output = gr.File(label="Download Audio Chunks", interactive=False)
 
-    with gr.Accordion("Step 3: Transcribe to Text", open=True):
+    with gr.Accordion("Step 3: Transcribe to Text", open=False):
+        gr.Markdown("#### Step 3: Transcribe to Text")
         gr.Markdown("Convert the prepared audio into text using Whisper.")
         gr.Markdown("You can either use the audio prepared above or upload a new audio file directly.")
         with gr.Tabs():
@@ -94,31 +96,14 @@ with gr.Blocks() as demo:
         segmented_transcription_output = gr.Textbox(label="Segmented Transcription", lines=8, interactive=False)
         transcript_download_output = gr.File(label="Download Full Transcript (.txt)")
 
-    with gr.Accordion("Step 4: Translate Text", open=True):
+    with gr.Accordion("Step 4: Translate Text", open=False):
+        gr.Markdown("#### Step 4: Translate Text")
         gr.Markdown("Translate the German transcript to English. You can also paste your own text below.")
         translate_button = gr.Button("4. Translate German to English", variant="primary")
         editable_translation_output = gr.Textbox(label="Editable Translation (English)", lines=8, interactive=True)
 
-    with gr.Accordion("Bonus: Audio Enhancement Toolbox", open=True):
-        gr.Markdown(
-            "Optional step to clean up audio with high/low pass filters, noise reduction and more."
-        )
-        gr.Markdown("Upload one or more audio files to apply enhancement filters.")
-        with gr.Row():
-            enhancement_audio_input = gr.File(label="Upload Audio File(s)", file_count="multiple")
-        with gr.Row():
-            highpass_slider = gr.Slider(minimum=0, maximum=500, value=100, step=10, label="High-pass Filter (Hz)")
-            lowpass_slider = gr.Slider(minimum=2000, maximum=8000, value=4000, step=100, label="Low-pass Filter (Hz)")
-        with gr.Row():
-            noise_reduce_checkbox = gr.Checkbox(label="Enable Noise Reduction (afftdn)", value=False)
-            dialogue_enhance_checkbox = gr.Checkbox(label="Enable Dialogue Enhancement", value=False)
-        compressor_checkbox = gr.Checkbox(label="Enable Dynamic Range Compressor", value=True)
-        enhance_button = gr.Button("Enhance Audio", variant="primary")
-        with gr.Row():
-            enhanced_audio_output = gr.Audio(label="Enhanced Audio Preview", type="filepath")
-            enhanced_files_output = gr.File(label="Download Enhanced Files (.zip)")
-
-    with gr.Accordion("Step 5: Synthesize Speech (Kokoro TTS)", open=True):
+    with gr.Accordion("Step 5: Synthesize Speech (Kokoro TTS)", open=False):
+        gr.Markdown("#### Step 5: Synthesize Speech")
         gr.Markdown(
             "Convert text back into speech using Kokoro TTS. You can start from the transcription or the translated text."
         )
@@ -143,6 +128,26 @@ with gr.Blocks() as demo:
         tts_button = gr.Button("5. Generate Speech", variant="primary")
         tts_audio_output = gr.Audio(label="Synthesized Speech", type="filepath")
         tts_sentence_download_output = gr.File(label="Download Individual Sentences (.zip)", interactive=False)
+
+    with gr.Accordion("Bonus: Audio Enhancement Toolbox", open=False):
+        gr.Markdown("#### Bonus: Audio Enhancement Toolbox")
+        gr.Markdown(
+            "Optional step to clean up audio with high/low pass filters, noise reduction and more."
+        )
+        gr.Markdown("Upload one or more audio files to apply enhancement filters.")
+        with gr.Row():
+            enhancement_audio_input = gr.File(label="Upload Audio File(s)", file_count="multiple")
+        with gr.Row():
+            highpass_slider = gr.Slider(minimum=0, maximum=500, value=100, step=10, label="High-pass Filter (Hz)")
+            lowpass_slider = gr.Slider(minimum=2000, maximum=8000, value=4000, step=100, label="Low-pass Filter (Hz)")
+        with gr.Row():
+            noise_reduce_checkbox = gr.Checkbox(label="Enable Noise Reduction (afftdn)", value=False)
+            dialogue_enhance_checkbox = gr.Checkbox(label="Enable Dialogue Enhancement", value=False)
+        compressor_checkbox = gr.Checkbox(label="Enable Dynamic Range Compressor", value=True)
+        enhance_button = gr.Button("Enhance Audio", variant="primary")
+        with gr.Row():
+            enhanced_audio_output = gr.Audio(label="Enhanced Audio Preview", type="filepath")
+            enhanced_files_output = gr.File(label="Download Enhanced Files (.zip)")
 
     # --- EVENT HANDLERS ---
     # ... (no changes to other handlers)
