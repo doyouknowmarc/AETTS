@@ -9,7 +9,7 @@ import os
 import traceback
 import re
 import zipfile
-import warnings
+# import warnings  # This module is currently not used
 
 # --- Import from our project files ---
 from config import AppConfig, CUDA_AVAILABLE, MPS_AVAILABLE
@@ -156,8 +156,9 @@ def step6_synthesize_speech_kokoro(text_to_speak, language_for_tts, kokoro_voice
         raise gr.Error(f"An error occurred during speech synthesis: {e}")
 
 
-def update_tts_input_and_lang(choice, original_text, translated_text):
-    if choice == "Use Original (German)":
-        return original_text, "de"
-    else:
-        return translated_text, "en"
+# def update_tts_input_and_lang(choice, original_text, translated_text):
+#     """Return text and language code based on user choice (unused)."""
+#     if choice == "Use Original (German)":
+#         return original_text, "de"
+#     else:
+#         return translated_text, "en"
