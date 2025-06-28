@@ -27,8 +27,11 @@ def select_audio_for_chunking(choice, original_path, processed_path):
     return original_path if choice == "Use Original Audio" else processed_path
 
 with gr.Blocks() as demo:
-    gr.Markdown("# AETTS: Modular Audio Extraction, Transcription, Translation, and Synthesis")
-    gr.Markdown("Each step can be used independently, or you can follow the full workflow where the output of one step feeds into the next.")
+    gr.Markdown("# AETTS Workflow")
+    gr.Markdown(
+        "Follow the steps below to extract, transcribe, translate and synthesize audio. "
+        "Each section can also be used on its own."
+    )
 
     # --- STATE MANAGEMENT ---
     state_original_audio = gr.State(None)
@@ -38,7 +41,8 @@ with gr.Blocks() as demo:
     # --- UI DEFINITION ---
 
     with gr.Accordion("Step 1 & 2: Get & Prepare Audio", open=True):
-        # ... (no changes in this section)
+        gr.Markdown("#### Step 1: Provide Audio")
+        gr.Markdown("Extract audio from a video file or upload an existing audio file.")
         with gr.Tabs():
             with gr.TabItem("From Video File"):
                 video_input = gr.Video(label="Input Video")
@@ -49,8 +53,10 @@ with gr.Blocks() as demo:
             with gr.TabItem("From Audio File"):
                 audio_upload_input = gr.Audio(label="Input Audio", type="filepath")
 
-        gr.Markdown("### Step 2: Pre-process Audio")
-        gr.Markdown("Input for this step is the audio from above (either extracted or uploaded).", visible=True)
+        gr.Markdown("#### Step 2: Pre-process Audio")
+        gr.Markdown(
+            "Use the optional tools below to remove silence and split the audio into chunks for easier transcription."
+        )
         
         with gr.Group():
             gr.Markdown("**2a. Remove Silence (Optional)**")
@@ -72,8 +78,8 @@ with gr.Blocks() as demo:
             chunk_download_output = gr.File(label="Download Audio Chunks", interactive=False)
 
     with gr.Accordion("Step 3: Transcribe to Text", open=True):
-        # ... (no changes in this section)
-        gr.Markdown("You can either use the audio prepared in the step above or upload a new audio file directly.")
+        gr.Markdown("Convert the prepared audio into text using Whisper.")
+        gr.Markdown("You can either use the audio prepared above or upload a new audio file directly.")
         with gr.Tabs():
             with gr.TabItem("Use Prepared Audio"):
                 gr.Markdown("Click 'Run Transcription' to use the audio from Step 2.")
@@ -89,13 +95,14 @@ with gr.Blocks() as demo:
         transcript_download_output = gr.File(label="Download Full Transcript (.txt)")
 
     with gr.Accordion("Step 4: Translate Text", open=True):
-        # ... (no changes in this section)
-        gr.Markdown("Input can be from the transcription step, or you can paste your own text below.")
+        gr.Markdown("Translate the German transcript to English. You can also paste your own text below.")
         translate_button = gr.Button("4. Translate German to English", variant="primary")
         editable_translation_output = gr.Textbox(label="Editable Translation (English)", lines=8, interactive=True)
 
     with gr.Accordion("Bonus: Audio Enhancement Toolbox", open=True):
-        # ... (no changes in this section)
+        gr.Markdown(
+            "Optional step to clean up audio with high/low pass filters, noise reduction and more."
+        )
         gr.Markdown("Upload one or more audio files to apply enhancement filters.")
         with gr.Row():
             enhancement_audio_input = gr.File(label="Upload Audio File(s)", file_count="multiple")
@@ -112,7 +119,9 @@ with gr.Blocks() as demo:
             enhanced_files_output = gr.File(label="Download Enhanced Files (.zip)")
 
     with gr.Accordion("Step 5: Synthesize Speech (Kokoro TTS)", open=True):
-        gr.Markdown("Synthesize speech from either the original transcription or the English translation.")
+        gr.Markdown(
+            "Convert text back into speech using Kokoro TTS. You can start from the transcription or the translated text."
+        )
         with gr.Row():
             take_from_transcription_button = gr.Button("Take from Transcription")
             take_from_translation_button = gr.Button("Take from Translation")

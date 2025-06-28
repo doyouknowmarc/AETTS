@@ -42,14 +42,22 @@ python app.py
 ```
 The UI will be available at `http://127.0.0.1:7860`.
 
-### Workflow steps
-1. **Get & Prepare Audio** – extract audio from a video or upload audio, remove silence and optionally split into chunks.
-2. **Transcribe to Text** – run Whisper to obtain a transcript of the audio.
-3. **Translate Text** – translate the German transcript to English.
-4. **Synthesize Speech** – generate speech from either text using Kokoro TTS. Voices are defined in `config.py` and detailed in `models/kokoro_model/VOICES.md`.
-5. **Audio Enhancement Toolbox** (optional) – apply ffmpeg based filters and optionally download a zip of enhanced files.
+## Step-by-Step Workflow
 
-Transcripts are saved in the `transcripts/` directory when created.
+### 1. Get & Prepare Audio
+Extract audio from a video or upload an audio file. You can remove silence and optionally split the audio into chunks for easier transcription.
+
+### 2. Transcribe to Text
+Run Whisper on the prepared audio. Choose the model size and language; transcripts are saved in `transcripts/`.
+
+### 3. Translate Text
+Translate the German transcript to English using the local translation model.
+
+### Bonus: Audio Enhancement Toolbox
+Apply ffmpeg-based filters such as high/low pass, noise reduction, and compression. Multiple files can be processed and downloaded as a zip.
+
+### 4. Synthesize Speech
+Generate speech from your chosen text with Kokoro TTS. Pick a voice from `config.py` and adjust the speed if needed.
 
 ## Repository structure
 - `app.py` – main Gradio interface.
