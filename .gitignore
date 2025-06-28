@@ -109,6 +109,9 @@ desktop.ini
 *.pt
 models/whisper/*
 models/translation_model/*
+!models/translation_model/here_translation_model.txt
+!models/whisper/here_transcription_model.txt
+
 models/kokoro_model/*
 !models/kokoro_model/voices/
 !models/kokoro_model/voices/*
