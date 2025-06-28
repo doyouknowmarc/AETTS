@@ -1,0 +1,124 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+.env/
+
+# PyInstaller
+#  Usually contains the output of pyinstaller builds
+dist/
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Pytype
+.pytype/
+
+# profiling
+.prof
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Editor and IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# macOS / Linux / Windows system files
+.DS_Store
+*.swp
+*.bak
+*.tmp
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# dotenv
+.env
+.env.*
+
+# Docker
+*.pid
+*.pid.lock
+
+# files
+*.pth 
+*.safetensors
+*.pt
+models/whisper/*
+models/translation_model/*
+models/kokoro_model/*
+!models/kokoro_model/voices/
+!models/kokoro_model/voices/*
+!models/kokoro_model/VOICES.md
+!models/kokoro_model/config.json
+
+
+#models/
+
+# env
+myenv/
+PythonPackages/
+transcripts/
