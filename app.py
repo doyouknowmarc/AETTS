@@ -8,7 +8,8 @@ from config import AppConfig, CUDA_AVAILABLE, MPS_AVAILABLE
 from audio_processing import step1_extract_audio, step2_remove_silence, step3_chunk_audio
 from transcription_logic import step4_run_transcription
 from translation_logic import step5_translate_text
-from synthesis_logic import step6_synthesize_speech_kokoro, update_tts_input_and_lang
+# update_tts_input_and_lang is currently unused
+from synthesis_logic import step6_synthesize_speech_kokoro
 from audio_enhancement import enhance_audio
 
 print(f"--- Startup Check ---")
